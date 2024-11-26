@@ -20,7 +20,7 @@
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 300px;
+            width: 400px;
         }
         .form-container h2 {
             text-align: center;
@@ -34,6 +34,7 @@
             width: 100%;
             padding: 10px;
             margin-bottom: 15px;
+            box-sizing: border-box;
             border: 1px solid #ccc;
             border-radius: 4px;
         }
@@ -49,25 +50,74 @@
         .form-container button:hover {
             background-color: #45a049;
         }
+        .form-container .clear-btn {
+            background-color: #ADD8E6; 
+            margin-top: 10px; 
+        }
+        .form-container .clear-btn:hover {
+            background-color: #A2C8E1; 
+        }
     </style>
 </head>
 <body>
 
     <div class="form-container">
         <h2>Cadastro</h2>
-        <form action="#" method="POST">
+        <form id="form" action="#" method="POST" onsubmit="return validateForm()">
             <label for="nome">Nome:</label>
-            <input type="text" id="nome" name="nome" required>
-
+            <input type="text" id="nome" name="nome">
+            
             <label for="email">E-mail:</label>
-            <input type="email" id="email" name="email" required>
-
+            <input type="email" id="email" name="email">
+            
             <label for="idade">Idade:</label>
-            <input type="number" id="idade" name="idade" required>
-
+            <input type="number" id="idade" name="idade">
+            
             <button type="submit">Enviar</button>
+            <!-- Botão Limpar -->
+            <button type="button" class="clear-btn" onclick="clearForm()">Limpar</button>
         </form>
     </div>
+
+    <script>
+        function validateForm() {
+            let isValid = true;
+            let errorMessage = '';
+
+            let nome = document.getElementById('nome').value;
+            if (nome === "") {
+                isValid = false;
+                errorMessage += 'Por favor, insira seu nome.\n';
+            }
+
+            let email = document.getElementById('email').value;
+            if (email === "") {
+                isValid = false;
+                errorMessage += 'Por favor, insira um e-mail válido.\n';
+            }
+            let idade = document.getElementById('idade').value;
+            if (idade === "" || idade <= 0) {
+                isValid = false;
+                errorMessage += 'Por favor, insira uma idade válida (maior que 0).\n';
+            }
+            if (!isValid) {
+                alert(errorMessage); // Exibe o popup com as mensagens de erro
+            }
+            if (isValid) {
+                alert("Dados inseridos!");
+            }
+
+            return isValid;
+        }
+        function validateEmail(email) {
+            const re = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+            return re.test(email);
+        }
+        function clearForm() {
+            document.getElementById('form').reset(); // Limpa todos os campos do formulário
+        }
+    </script>
+
 
 </body>
 </html>
