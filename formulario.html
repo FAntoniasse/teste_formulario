@@ -84,35 +84,48 @@
             let isValid = true;
             let errorMessage = '';
 
+            // Validação do campo nome
             let nome = document.getElementById('nome').value;
             if (nome === "") {
                 isValid = false;
                 errorMessage += 'Por favor, insira seu nome.\n';
             }
 
+            // Validação do campo e-mail
             let email = document.getElementById('email').value;
-            if (email === "") {
+            if (email === "" || !validateEmail(email)) {
                 isValid = false;
                 errorMessage += 'Por favor, insira um e-mail válido.\n';
             }
+
+            // Validação do campo idade (idade deve ser maior que 0)
             let idade = document.getElementById('idade').value;
             if (idade === "" || idade <= 0) {
                 isValid = false;
                 errorMessage += 'Por favor, insira uma idade válida (maior que 0).\n';
             }
+
+            // Se algum campo for inválido, exibe as mensagens de erro no popup
             if (!isValid) {
                 alert(errorMessage); // Exibe o popup com as mensagens de erro
             }
+
+            // Se o formulário for válido, exibe o popup de sucesso
             if (isValid) {
                 alert("Dados inseridos!");
+                clearForm(); // Limpa os campos do formulário após o envio bem-sucedido
             }
 
-            return isValid;
+            return isValid; // Retorna 'false' se algum campo estiver inválido, impedindo o envio do formulário
         }
+
+        // Função para validar o formato do e-mail
         function validateEmail(email) {
             const re = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
             return re.test(email);
         }
+
+        // Função para limpar os campos do formulário
         function clearForm() {
             document.getElementById('form').reset(); // Limpa todos os campos do formulário
         }
