@@ -80,59 +80,51 @@
 
     <script>
         function validateForm(event) {
-            event.preventDefault(); // Impede o envio do formulário
+            event.preventDefault();
             
             let isValid = true;
             let errorMessage = '';
 
-            // Validação do campo nome
             let nome = document.getElementById('nome').value;
             if (nome === "") {
                 isValid = false;
-                errorMessage += 'Por favor, insira seu nome.\n';
+                errorMessage += 'Nome inválido.\n';
             }
 
-            // Validação do campo e-mail
             let email = document.getElementById('email').value;
             if (email === "" || !validateEmail(email)) {
                 isValid = false;
-                errorMessage += 'Por favor, insira um e-mail válido.\n';
+                errorMessage += 'Email inválido.\n';
             }
-
-            // Validação do campo idade (idade deve ser maior que 0)
+            
             let idade = document.getElementById('idade').value;
             if (idade === "" || idade <= 0) {
                 isValid = false;
-                errorMessage += 'Por favor, insira uma idade válida (maior que 0).\n';
+                errorMessage += 'Idade inválida.\n';
             }
 
-            // Se algum campo for inválido, exibe as mensagens de erro no popup
             if (!isValid) {
-                alert(errorMessage); // Exibe o popup com as mensagens de erro
+                alert(errorMessage); 
             }
 
-            // Se o formulário for válido, exibe o popup de sucesso e redireciona
             if (isValid) {
                 alert("Dados inseridos!");
                 
-                // Limpa os campos após o alerta ser fechado
                 setTimeout(() => {
                     clearForm();
-                }, 100); // Delay para garantir que o alerta foi fechado antes de redirecionar
+                }, 100); 
             }
 
-            return false; // Impede o envio do formulário para o servidor
+            return false; 
         }
 
-        // Função para validar o formato do e-mail
         function validateEmail(email) {
             const re = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
             return re.test(email);
         }
 
-        // Função para limpar os campos do formulário
         function clearForm() {
-            document.getElementById('form').reset(); // Limpa todos os campos do formulário
+            document.getElementById('form').reset(); 
         }
     </script>
 
