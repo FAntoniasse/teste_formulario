@@ -113,7 +113,11 @@
                 alert("Dados inseridos!");
                 
                 // Limpa os campos após o alerta ser fechado
-                setTimeout(clearForm, 100); // Delay para garantir que o alerta foi fechado antes de limpar
+                setTimeout(() => {
+                    clearForm();
+                    // Redireciona para a página principal após o tempo do alerta
+                    window.location.href = 'index.html'; // Altere para o caminho da sua página principal
+                }, 100);
             }
 
             return isValid; // Retorna 'false' se algum campo estiver inválido, impedindo o envio do formulário
