@@ -61,24 +61,27 @@
 </head>
 <body>
     <div class="form-container">
-            <h2>Cadastro</h2>
-            <form id="form" onsubmit="return validateForm()">
-                <label for="nome">Nome:</label>
-                <input type="text" id="nome" name="nome">
-                
-                <label for="email">E-mail:</label>
-                <input type="email" id="email" name="email">
-                
-                <label for="idade">Idade:</label>
-                <input type="number" id="idade" name="idade">
-                
-                <button type="submit">Enviar</button>
-                <!-- Botão Limpar -->
-                <button type="button" class="clear-btn" onclick="clearForm()">Limpar</button>
-            </form>
-        </div>
+        <h2>Cadastro</h2>
+        <form id="form" onsubmit="return validateForm(event)">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome">
+            
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email">
+            
+            <label for="idade">Idade:</label>
+            <input type="number" id="idade" name="idade">
+            
+            <button type="submit">Enviar</button>
+            <!-- Botão Limpar -->
+            <button type="button" class="clear-btn" onclick="clearForm()">Limpar</button>
+        </form>
+    </div>
+
     <script>
-        function validateForm() {
+        function validateForm(event) {
+            event.preventDefault(); // Impede o envio do formulário
+            
             let isValid = true;
             let errorMessage = '';
 
@@ -91,7 +94,7 @@
 
             // Validação do campo e-mail
             let email = document.getElementById('email').value;
-            if (email === "") {
+            if (email === "" || !validateEmail(email)) {
                 isValid = false;
                 errorMessage += 'Por favor, insira um e-mail válido.\n';
             }
@@ -108,7 +111,7 @@
                 alert(errorMessage); // Exibe o popup com as mensagens de erro
             }
 
-            // Se o formulário for válido, exibe o popup de sucesso
+            // Se o formulário for válido, exibe o popup de sucesso e redireciona
             if (isValid) {
                 alert("Dados inseridos!");
                 
@@ -117,10 +120,10 @@
                     clearForm();
                     // Redireciona para a página principal após o tempo do alerta
                     window.location.href = 'index.html'; // Altere para o caminho da sua página principal
-                }, 100);
+                }, 100); // Delay para garantir que o alerta foi fechado antes de redirecionar
             }
 
-            return isValid; // Retorna 'false' se algum campo estiver inválido, impedindo o envio do formulário
+            return false; // Impede o envio do formulário para o servidor
         }
 
         // Função para validar o formato do e-mail
